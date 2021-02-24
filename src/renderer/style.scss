@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+	font-family: "Jaapokki";
+	font-weight: 400;
+	src: url("static://fonts/Jaapokki.otf") format("opentype");
+}
+
+@layer utilities {
+	.bottom-left-container {
+		@apply absolute bottom-1 left-1;
+	}
+
+	.white-to-transparent {
+		background-image: linear-gradient(90deg, white 10rem, transparent 12rem);
+	}
+
+	.gray-to-transparent {
+		background-image: linear-gradient(
+			90deg,
+			rgb(156, 163, 175) 10rem,
+			transparent 12rem
+		);
+	}
+
+	.title-gradient {
+		background-size: 100%;
+		-webkit-background-clip: text;
+		-moz-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		-moz-text-fill-color: transparent;
+		text-fill-color: transparent;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	.title {
+		@apply font-custom transition duration-150 ease-out text-blue-400 hover:underline;
+	}
+
+	.no-scrollbar {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+
+	.topbar {
+		-webkit-user-select: none;
+		-webkit-app-region: drag;
+		height: 22px;
+
+		@apply leading-none bg-gray-900;
+	}
+
+	.topbar-button {
+		-webkit-app-region: no-drag;
+		pointer-events: auto;
+		cursor: pointer;
+		width: 26px;
+		height: 22px;
+
+		@apply relative justify-center items-center text-center flex text-gray-500;
+	}
+
+	.topbar-button-content {
+		width: 12px;
+		height: 12px;
+	}
+
+	.below-topbar {
+		y: 22px;
+	}
+
+	.full-minus-topbar {
+		height: calc(100vh - 22px);
+	}
+
+	.dir-rtl {
+		direction: rtl;
+	}
+}
+
+input,
+select,
+option {
+	outline: 0;
+
+	padding: 10px;
+	height: 40px;
+	line-height: 20px;
+	width: 100%;
+
+	border: 1px solid;
+	border-radius: 5px;
+	box-sizing: border-box;
+
+	@apply bg-gray-800;
+	@apply border-gray-1000;
+	@apply text-gray-400;
+}
+
+::-webkit-calendar-picker-indicator {
+	filter: invert(1);
+}
+
+input::placeholder {
+	@apply text-gray-600;
+}
+
+button,
+button:focus,
+a,
+a:focus {
+	outline: 0;
+}
+
+body {
+	@apply bg-gray-900;
+	@apply text-gray-400;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+* {
+	box-sizing: border-box;
+}
