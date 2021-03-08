@@ -337,7 +337,8 @@ const custom = (): React.ReactElement => {
 							value="Save as Default"
 							onClick={() => {
 								ipcRenderer.send(
-									"set-preset",
+									"set-setting",
+									"defaultPreset",
 									constructPayloadFromStates(true)
 								);
 							}}

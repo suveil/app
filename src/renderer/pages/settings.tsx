@@ -1,9 +1,9 @@
+import { ipcRenderer } from "electron";
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
 	settings,
-	updateSetting,
 	ElectronStoreSettings,
 } from "../../controllers/settingsController";
 import Image from "../components/Image";
@@ -30,21 +30,16 @@ const SettingsToggle = (props: {
 }): React.ReactElement => {
 	const [value, setValue] = useState(settings.get(props.settingName));
 
-	useEffect(() => {
-		const unsubscribe = settings.onDidChange(props.settingName, (newValue) => {
-			setValue(newValue);
-		});
-
-		return () => {
-			unsubscribe();
-		};
-	}, []);
-
 	return (
 		<Toggle
 			value={value as boolean}
 			callback={() => {
-				updateSetting(props.settingName, !value);
+				const newValue = ipcRenderer.sendSync(
+					"set-setting",
+					props.settingName,
+					!value
+				);
+				setValue(newValue);
 			}}
 		/>
 	);

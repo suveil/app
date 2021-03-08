@@ -10,7 +10,11 @@ import {
 	setActivity,
 } from "./controllers/discordController";
 import launchController from "./controllers/launchController";
-import { settings, updateSetting } from "./controllers/settingsController";
+import {
+	ElectronStoreSettings,
+	settings,
+	updateSetting,
+} from "./controllers/settingsController";
 import { InitiateTrayController } from "./controllers/trayController";
 import { getJoinSecret, getPartyIdFromJoinSecret } from "./util/urlEncryption";
 
@@ -78,9 +82,14 @@ if (!singleInstanceLock) {
 		});
 
 		ipcMain.on(
-			"set-preset",
-			(ipcMainEvent, presencePayload: PresencePayload) => {
-				updateSetting("defaultPreset", presencePayload);
+			"set-setting",
+			<TSettingName extends keyof ElectronStoreSettings>(
+				ipcMainEvent: Electron.IpcMainEvent,
+				settingName: TSettingName,
+				value: ElectronStoreSettings[TSettingName]
+			) => {
+				updateSetting(settingName, value);
+				ipcMainEvent.returnValue = value;
 			}
 		);
 	};
